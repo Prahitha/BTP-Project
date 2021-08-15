@@ -25,12 +25,16 @@ let trainer_triangle = [28.01343931, 539.1596987, 25.62287765, 541.67887231, 25.
 
 let timer = 10;
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function setup() {
   triangle_img = loadImage('YogaPoseImages/Triangle2.png');
   mountain_img = loadImage('YogaPoseImages/Mountain2.png');
   warrior_img = loadImage('YogaPoseImages/warrior2.png');
   
-  createCanvas(1897, 1090);
+  createCanvas(windowWidth, windowHeight);
   video = createCapture(VIDEO);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
@@ -106,7 +110,7 @@ function draw() {
   push();
   translate(video.width, 0);
   scale(-1, 1);
-  image(video, -300, 150, video.width, video.height);
+  image(video, -(windowWidth/6), windowHeight/6, video.width, video.height);
 
   if (pose) {
     for (let i = 0; i < skeleton.length; i++) {
@@ -115,11 +119,11 @@ function draw() {
       strokeWeight(3);
       stroke(173,217,230);
 
-      line(a.position.x-300, a.position.y+150, b.position.x-300, b.position.y+150);
+      line(a.position.x-(windowWidth/6), a.position.y+(windowHeight/6), b.position.x-(windowWidth/6), b.position.y+(windowHeight/6));
     }
     for (let i = 0; i < pose.keypoints.length; i++) {
-      let x = pose.keypoints[i].position.x-300;
-      let y = pose.keypoints[i].position.y+150;
+      let x = pose.keypoints[i].position.x-(windowWidth/6);
+      let y = pose.keypoints[i].position.y+windowHeight/6;
       fill(173,217,230);
       stroke(0);
       ellipse(x, y, 16, 16);
@@ -137,14 +141,14 @@ function draw() {
   textSize(40);
   textAlign(LEFT, CENTER);
     textStyle(BOLD)
-    text ('Nice Job!', 520, 70)
+    text ('Nice Job!', windowWidth/3.5, windowHeight/9)
   } else {
     fill(204, 0, 0);
     noStroke();
     textSize(30);
     textAlign(CENTER, CENTER);
     textStyle(BOLD)
-    text ('Match the pose on the Right', 620, 60)
+    text ('Match the pose on the Right', windowWidth/3, windowHeight/14)
   }
   interface(m);
   
@@ -300,8 +304,8 @@ function interface(label){
   noStroke();
   textSize(32);
   textAlign(CENTER, CENTER);
-  text(name + " Pose", 1490, 60);
+  text(name + " Pose", windowWidth/1.4, windowHeight/14);
   
-  image(img, 1200, 200, 560, 373);
+  image(img, windowWidth/1.75, windowHeight/4, 560, 373);
   
 }
