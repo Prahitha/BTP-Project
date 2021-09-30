@@ -28,6 +28,17 @@ let timer = 10;
 // A sound file object
 let dingdong;
 var soundShouldStop = false;
+let isPlay = false;
+let isStop = true;
+let count = 0;
+
+onSoundEnd = _ => {
+  if (isPlay) {
+    console.info("sound finished");
+    isPlay = false;
+    isStop = true;
+  }
+}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -110,6 +121,11 @@ function modelLoaded() {
 
 function preload(){
   bg = loadImage("./yoga2.jpg")
+}
+
+function playSound(){
+  dingdong.play();
+  count = count + 1;
 }
 
 function draw() {
@@ -199,18 +215,25 @@ function draw() {
   pop();
 
   let m = moves[ind % 3];
-  if (poseLabel == m){
+  if (poseLabel == m && count == 0){
     fill(0, 128, 0);
     textSize(40);
     textAlign(LEFT, CENTER);
     textStyle(BOLD);
     text('Nice Job!', windowWidth/3.5, windowHeight/9);
-    dingdong.play();
-    soundShouldStop = true;
-    dingdong.rate(1);
+    playSound();
+  }
+
+  if (poseLabel == m && count != 0){
+    fill(0, 128, 0);
+    textSize(40);
+    textAlign(LEFT, CENTER);
+    textStyle(BOLD);
+    text('Nice Job!', windowWidth/3.5, windowHeight/9);
   }
   
   else {
+    count = 0;
     fill(204, 0, 0);
     noStroke();
     textSize(30);
