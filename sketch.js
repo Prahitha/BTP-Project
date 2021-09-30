@@ -27,18 +27,7 @@ let timer = 10;
 
 // A sound file object
 let dingdong;
-var soundShouldStop = false;
-let isPlay = false;
-let isStop = true;
 let count = 0;
-
-onSoundEnd = _ => {
-  if (isPlay) {
-    console.info("sound finished");
-    isPlay = false;
-    isStop = true;
-  }
-}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -154,60 +143,68 @@ function draw() {
         fill(255, 0, 0);
         ellipse(x, y, 20, 20);
         if (i == 5){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Left arm and upper body', windowWidth/5.5, windowHeight/1.1);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Left arm and upper body', windowWidth/5.5, windowHeight/1.26);
+          pop();
         }
         if (i == 6){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Right arm and upper body', windowWidth/5.5, windowHeight/1.09);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Right arm and upper body', windowWidth/5.5, windowHeight/1.23);
+          pop();
         }
         if (i == 7){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Left elbow', windowWidth/5.5, windowHeight/1.08);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Left elbow', windowWidth/5.5, windowHeight/1.2);
+          pop();
         }
         if (i == 8){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Right elbow', windowWidth/5.5, windowHeight/1.07);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Right elbow', windowWidth/5.5, windowHeight/1.17);
+          pop();
         }
         if (i == 11){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Left upper and lower body', windowWidth/5.5, windowHeight/1.06);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Left upper and lower body', windowWidth/5.5, windowHeight/1.14);
+          pop();
         }
         if (i == 12){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Right upper and lower body', windowWidth/5.5, windowHeight/1.05);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Right upper and lower body', windowWidth/5.5, windowHeight/1.11);
+          pop();
         }
         if (i == 13){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Left knee', windowWidth/5.5, windowHeight/1.04);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Left knee', windowWidth/5.5, windowHeight/1.08);
+          pop();
         }
         if (i == 14){
-          fill(0,128,0);
-          textSize(20);
-          textAlign(LEFT, CENTER);
+          push();
           scale(-1, 1);
-          text('Right knee', windowWidth/5.5, windowHeight/1.03);
+          fill(255, 0, 0);
+          textSize(20);
+          text('Right knee', windowWidth/5.5, windowHeight/1.05);
+          pop();
         }
       }
     }
