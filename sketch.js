@@ -25,6 +25,10 @@ let trainer_triangle = [28.01343931, 539.1596987, 25.62287765, 541.67887231, 25.
 
 let timer = 10;
 
+// A sound file object
+let dingdong;
+var soundShouldStop = false;
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
@@ -33,6 +37,9 @@ function setup() {
   triangle_img = loadImage('YogaPoseImages/Triangle2.png');
   mountain_img = loadImage('YogaPoseImages/Mountain2.png');
   warrior_img = loadImage('YogaPoseImages/warrior2.png');
+
+  soundFormats('mp3', 'ogg');
+  dingdong = loadSound('2989.mp3');
   
   createCanvas(windowWidth, windowHeight);
   video = createCapture(VIDEO);
@@ -77,7 +84,7 @@ function classifyPose() {
 
 function gotResult(error, results) {
   
-  if (results[0].confidence > 0.75) {
+  if (results[0].confidence > 0.85) {
     poseLabel = results[0].label;
     setTimeout(savePose, 5000);
   }
@@ -130,6 +137,62 @@ function draw() {
       if (mistake.includes(i)) {
         fill(255, 0, 0);
         ellipse(x, y, 20, 20);
+        if (i == 5){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Left arm and upper body', windowWidth/5.5, windowHeight/1.1);
+        }
+        if (i == 6){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Right arm and upper body', windowWidth/5.5, windowHeight/1.09);
+        }
+        if (i == 7){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Left elbow', windowWidth/5.5, windowHeight/1.08);
+        }
+        if (i == 8){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Right elbow', windowWidth/5.5, windowHeight/1.07);
+        }
+        if (i == 11){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Left upper and lower body', windowWidth/5.5, windowHeight/1.06);
+        }
+        if (i == 12){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Right upper and lower body', windowWidth/5.5, windowHeight/1.05);
+        }
+        if (i == 13){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Left knee', windowWidth/5.5, windowHeight/1.04);
+        }
+        if (i == 14){
+          fill(0,128,0);
+          textSize(20);
+          textAlign(LEFT, CENTER);
+          scale(-1, 1);
+          text('Right knee', windowWidth/5.5, windowHeight/1.03);
+        }
       }
     }
   }
@@ -138,17 +201,22 @@ function draw() {
   let m = moves[ind % 3];
   if (poseLabel == m){
     fill(0, 128, 0);
-  textSize(40);
-  textAlign(LEFT, CENTER);
-    textStyle(BOLD)
-    text ('Nice Job!', windowWidth/3.5, windowHeight/9)
-  } else {
+    textSize(40);
+    textAlign(LEFT, CENTER);
+    textStyle(BOLD);
+    text('Nice Job!', windowWidth/3.5, windowHeight/9);
+    dingdong.play();
+    soundShouldStop = true;
+    dingdong.rate(1);
+  }
+  
+  else {
     fill(204, 0, 0);
     noStroke();
     textSize(30);
     textAlign(CENTER, CENTER);
     textStyle(BOLD)
-    text ('Match the pose on the Right', windowWidth/3, windowHeight/14)
+    text('Match the pose on the Right', windowWidth/3, windowHeight/14)
   }
   interface(m);
   
@@ -171,7 +239,6 @@ function draw() {
 
 function savePose() {
   input = [];
-  console.log(pose);
   for (let i = 0; i < pose.keypoints.length; i++) {
     let x = pose.keypoints[i].position.x;
     let y = pose.keypoints[i].position.y;
